@@ -1,11 +1,12 @@
 package com.order.orderserive.model;
 
-import lombok.*;
-
 import jakarta.persistence.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+//component
 import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Table(name = "t_orders")
@@ -21,5 +22,4 @@ public class Order {
     private String skuCode;
     private BigDecimal price;
     private Integer quantity;
-    
 }

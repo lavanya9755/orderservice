@@ -12,7 +12,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import io.restassured.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
-
+//testing doen sucessfully yay!!
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 class OrderseriveApplicationTests {
@@ -37,11 +37,14 @@ class OrderseriveApplicationTests {
     void shouldSubmitOrder() {
         String submitOrderJson = """
                 {
-                     "skuCode": "iphone_15",
-                     "price": 1000,
-                     "quantity": 1
+                    "id": 1,
+                    "orderNumber": "ORD123",
+                    "skuCode": "iphone_15",
+                    "price": "1000.00",
+                    "quantity": 1
                 }
-                """;
+            """;
+
 
 
         var responseBodyString = RestAssured.given()

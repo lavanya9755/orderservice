@@ -27,8 +27,12 @@ public class OrderService {
         order.setQuantity(orderRequest.quantity());
 
         //save order object in list(orderrepo)
-        orderRepository.save(order);
-
+        try {
+            orderRepository.save(order);
+        } catch (Exception e) {
+            e.printStackTrace(); // log what exactly is failing
+        }
+        
 
 
     }

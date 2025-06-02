@@ -11,22 +11,30 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-
+//controller
 @RestController
-@RequestMapping("api/order")
+@RequestMapping("/api/order")
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderService orderService;
 
-    @GetMapping("order")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)   
     public String  placeOrder(@RequestBody OrderRequest orderRequest){
-        orderService.placeOrder(orderRequest);
-        return "orderplace sucessfully ";
+        try {
+            System.out.println("Incoming order: " + orderRequest);
+            orderService.placeOrder(orderRequest);
+            return "Order Placed Successfully";
+        } catch (Exception e) {
+            // Log the exact cause of the 500 error
+            e.printStackTrace();
+            throw e; // rethrow to keep the test behavior
+        }
         
     }
     
