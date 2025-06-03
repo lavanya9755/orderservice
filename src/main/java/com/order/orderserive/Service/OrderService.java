@@ -3,6 +3,7 @@ package com.order.orderserive.Service;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.order.orderserive.Repository.OrderRepository;
@@ -17,7 +18,10 @@ import lombok.RequiredArgsConstructor;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private InventoryClient inventoryClient;
+
+//  @Autowired why not using this , because we are using constructor injection annotation @RequiredArgsConstructor
+    
+    private final InventoryClient inventoryClient;
 
 
     public  void placeOrder(OrderRequest orderRequest){
@@ -32,7 +36,8 @@ public class OrderService {
         order.setQuantity(orderRequest.quantity());
         orderRepository.save(order);
         }else{
-            throw new RuntimeException("Product is with skuCode"+ orderRequest.skuCode() + " is not in stock");
+            throw new ProductOutOfStockException("Product with skuCode " + orderRequest.skuCode() + " is not in stock");
+
         }
 
         // testing
@@ -42,8 +47,13 @@ public class OrderService {
         // } catch (Exception e) {
         //     e.printStackTrace(); // log what exactly is failing
         // }
-        
-
-
+    
     }
+
+    public class ProductOutOfStockException extends RuntimeException {
+        public ProductOutOfStockException(String message) {
+            super(message);
+        }
+    }
+    
 }

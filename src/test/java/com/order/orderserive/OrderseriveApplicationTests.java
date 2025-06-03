@@ -22,6 +22,7 @@ class OrderseriveApplicationTests {
     static MySQLContainer mySQLContainer = new MySQLContainer("mysql:8.3.0");
     @LocalServerPort
     private Integer port;
+    
 
     @BeforeEach
     void setup() {
@@ -36,9 +37,7 @@ class OrderseriveApplicationTests {
     @Test
     void shouldSubmitOrder() {
         String submitOrderJson = """
-                {
-                    "id": 1,
-                    "orderNumber": "ORD123",
+                {                   
                     "skuCode": "iphone_15",
                     "price": "1000.00",
                     "quantity": 1
